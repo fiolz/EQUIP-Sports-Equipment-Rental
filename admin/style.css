@@ -1,0 +1,479 @@
+/* --- EQUIP. ADMIN MASTER (FIXED VERSION) --- */
+:root {
+    --sidebar-width: 260px;
+    --primary-black: #000000;
+    --border-color: #eee;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    color: black;
+    overflow-x: hidden;
+}
+
+/* --- LAYOUT --- */
+.admin-layout { display: flex; width: 100%; }
+
+.admin-sidebar {
+    width: var(--sidebar-width);
+    background: var(--primary-black);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    left: 0; top: 0;
+    padding: 40px;
+    z-index: 100;
+}
+
+.admin-sidebar .logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    font-style: italic;
+    margin-bottom: 50px;
+}
+
+.side-nav { display: flex; flex-direction: column; gap: 20px; }
+.nav-item {
+    color: #555;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+.nav-item.active { color: white; }
+
+.admin-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 60px;
+    min-height: 100vh;
+}
+
+.form-group input {
+    background-color: #555;
+}
+
+/* --- TYPOGRAPHY & HEADER --- */
+h1 { font-size: 3rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 10px; }
+.content-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+p { color: #888; font-size: 14px; }
+
+/* --- TABLE (alat_tampil.php) --- */
+.table-container { width: 100%; overflow-x: auto; }
+.modern-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.modern-table th {
+    text-align: left; padding: 15px 0; font-size: 11px; font-weight: 900;
+    border-bottom: 2px solid black; text-transform: uppercase;
+}
+.modern-table td { padding: 20px 0; border-bottom: 1px solid var(--border-color); font-size: 14px; }
+.btn-edit { color: black; font-weight: 900; text-decoration: none; border-bottom: 2px solid black; margin-right: 15px; font-size: 11px; }
+.btn-delete { color: #ff4444; font-weight: 900; text-decoration: none; font-size: 11px; }
+
+/* --- FORM (alat_tambah.php) --- */
+.modern-form { max-width: 600px; margin-top: 30px; }
+.form-group { margin-bottom: 25px; }
+.form-group label { display: block; font-weight: 900; font-size: 10px; letter-spacing: 1px; margin-bottom: 8px; color: #000; }
+
+/* Gaya Input Garis Bawah (Sama kayak Login lo) */
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    outline: none;
+    font-family: inherit;
+    background: transparent;
+    transition: 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus { border-bottom-color: black; }
+
+               
+.btn-login-new, .btn-action, .btn-update {
+    background: black;
+    color: white;
+    padding: 18px 30px;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    .admin-layout { flex-direction: column; }
+    .admin-sidebar { width: 100%; height: auto; position: relative; padding: 20px; }
+    .side-nav { flex-direction: row; justify-content: space-around; }
+    .admin-content { margin-left: 0; padding: 30px 20px; }
+    h1 { font-size: 2rem; }
+    .content-header { flex-direction: column; gap: 20px; }
+}
+
+/* --- KOTAK INPUT KONTRAS (ANTI-NGAMBANG) --- */
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 15px; /* Kasih ruang biar gak sesek */
+    border: 1px solid #eee; /* Garis tepi tipis */
+    background-color: #e6e5e5 !important; /* INI DIA: Warna kotak input beda dari bg putih */
+    color: #000; /* Teks yang lo ketik tetep hitam */
+    outline: none;
+    font-family: inherit;
+    transition: 0.3s ease;
+    border-radius: 4px; /* Biar gak terlalu kaku */
+}
+
+/* Pas kursor masuk ke kotak input */
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    background-color: #e2e1e1 !important; /* Gelapin dikit pas fokus */
+    border-color: #000; /* Garis bawah/tepi jadi hitam */
+}
+
+/* Placeholder warnanya jangan putih! Pakai abu-abu gelap */
+::placeholder {
+    color: #888888 !important;
+    opacity: 1;
+}
+
+/* Khusus Select/Dropdown */
+select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='black' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center;
+}
+
+/* --- POLESAN TABEL INVENTORY --- */
+
+/* 1. Atur container tabel biar rapi & responsif */
+.table-container {
+    margin-top: 30px;
+    background: white;
+    width: 100%;
+    overflow-x: auto; /* Biar kalau di HP bisa di-slide */
+}
+
+/* 2. Styling tabel utama */
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    border: none; /* Hapus border default yang kaku */
+}
+
+/* 3. Header Tabel (TH) */
+.table-container th {
+    text-align: left;
+    padding: 20px 15px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid black; /* Garis bawah tebel khas EQUIP. */
+    background: white;
+}
+
+/* 4. Baris Tabel (TD) */
+.table-container td {
+    padding: 20px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee; /* Garis pemisah halus */
+    vertical-align: middle;
+}
+
+/* 5. Efek Hover Baris (Biar interaktif) */
+.table-container tr:hover td {
+    background-color: #fcfcfc;
+}
+
+/* --- ADMIN REFINEMENT MASTER --- */
+
+/* Fix Layout agar sidebar tetap di kiri (Fixed) */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background: #000;
+    color: white;
+    height: 100vh;
+    position: fixed; /* Kunci Sidebar */
+    left: 0;
+    top: 0;
+    padding: 40px;
+    z-index: 1000;
+}
+
+.admin-content {
+    flex: 1;
+    margin-left: 260px; /* Jarak pas seukuran sidebar */
+    padding: 60px;
+    background: #fff;
+}
+
+/* Form Styling */
+.form-card {
+    max-width: 650px;
+    background: white;
+}
+
+.form-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Poles Input Field (Gak Putih lagi) */
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #eee;
+    background-color: #f7f7f7 !important; /* Warna kontras sesuai request lo */
+    color: #000;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+    background-color: #efefef !important;
+    border-color: #000;
+}
+
+/* Image Preview & File Input */
+.preview-img {
+    width: 120px;
+    height: auto;
+    border: 2px solid black;
+    margin-bottom: 10px;
+    filter: grayscale(100%);
+}
+
+.file-input {
+    background: none !important;
+    border: none !important;
+    padding-left: 0 !important;
+}
+
+/* Action Buttons */
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.lnk-back {
+    color: #888;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 11px;
+    border-bottom: 2px solid transparent;
+}
+
+.lnk-back:hover {
+    color: black;
+    border-bottom-color: black;
+}
+
+/* Responsivitas biar gak hancur di HP */
+@media (max-width: 768px) {
+    .admin-sidebar { width: 100%; height: auto; position: relative; padding: 20px; }
+    .admin-content { margin-left: 0; padding: 30px 20px; }
+    .form-grid-two { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* --- RESET & POLES TABEL (user_tampil.php & alat_tampil.php) --- */
+
+/* Memaksa semua tabel di dalam admin-content jadi modern */
+.admin-content table {
+    width: 100%;
+    border-collapse: collapse !important; /* Hilangkan garis ganda border="1" */
+    border: none !important; /* Hapus garis kotak luar jadul */
+    margin-top: 30px;
+}
+
+/* Header Tabel */
+.admin-content th {
+    text-align: left;
+    padding: 15px 10px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid black !important; /* Garis tebal khas EQUIP. */
+    background: transparent;
+}
+
+/* Isi Tabel */
+.admin-content td {
+    padding: 15px 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee !important; /* Garis pemisah halus */
+    color: #333;
+}
+
+/* Warna selang-seling biar enak dibaca */
+.admin-content tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Efek pas kursor di atas baris */
+.admin-content tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Styling Link Aksi (EDIT | HAPUS) */
+.admin-content td a {
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    transition: 0.3s;
+}
+
+/* Warna khusus Edit (Hitam Bold) */
+.admin-content td a[href*="edit"] {
+    color: black;
+    border-bottom: 2px solid black;
+    margin-right: 5px;
+}
+
+/* Warna khusus Hapus (Merah) */
+.admin-content td a[href*="hapus"] {
+    color: #ff4444;
+    margin-left: 5px;
+}
+
+.admin-content td a:hover {
+    opacity: 0.6;
+}
+
+/* Tombol Tambah di atas tabel agar sesuai dengan btn-action */
+.admin-content a[href*="tambah"] {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 12px 20px;
+    font-weight: 900;
+    font-size: 11px;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+/* --- POLESAN TOTAL USER & INVENTORY --- */
+
+/* 1. Judul & Navigasi Atas */
+h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.admin-content a[href="../dashboard.php"] {
+    text-decoration: none;
+    color: #888;
+    font-size: 11px;
+    font-weight: 900;
+    transition: 0.3s;
+}
+
+/* 2. Tombol Tambah (Biar Gak Polosan) */
+a[href*="tambah"] {
+    display: inline-block;
+    background: black;
+    color: white !important;
+    padding: 15px 25px;
+    font-weight: 900;
+    font-size: 11px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-left: 20px;
+    transition: 0.3s;
+}
+
+a[href*="tambah"]:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+/* 3. Perbaikan Tabel (Solusi Cellpadding Gak Ngaruh) */
+table {
+    width: 100%;
+    border-collapse: collapse !important;
+    border: none !important;
+    margin-top: 40px;
+}
+
+th {
+    text-align: left;
+    padding: 20px 15px !important; /* Ini pengganti cellpadding */
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid black !important;
+}
+
+td {
+    padding: 20px 15px !important; /* Ini pengganti cellpadding */
+    font-size: 14px;
+    border-bottom: 1px solid #eee !important;
+    color: #333;
+}
+
+/* 4. Tombol Aksi (EDIT & HAPUS) */
+td a {
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 11px;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+td a[href*="edit"] {
+    color: black;
+    border-bottom: 2px solid black;
+    margin-right: 15px;
+}
+
+td a[href*="hapus"] {
+    color: #ff4444;
+}
+
+td a:hover {
+    opacity: 0.5;
+}
+
+/* Highlight baris pas di-hover */
+tr:hover td {
+    background-color: #fafafa;
+}
+
+.btn-delete {
+    color: #ff4444 !important;
+    margin-left: 15px;
+    border-bottom: 2px solid transparent;
+}
+
+.btn-delete:hover {
+    border-bottom-color: #ff4444;
+}
+
+
