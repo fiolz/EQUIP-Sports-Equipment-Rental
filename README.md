@@ -11,13 +11,13 @@ Proyek sederhana untuk manajemen peminjaman alat olahraga menggunakan **PHP Nati
 
 ## 🔑 Login Access
 Tersedia 3 level akses (Admin, Petugas, Peminjam). Silakan cek tabel user di database untuk detail akun atau gunakan:
-- Peminjam
+### Peminjam
   username: peminjam
   password: peminjam123
-- Admin
+### Admin
   username: admin
   password: admin123
-- Petugas
+### Petugas
   username: petugas
   password: petugas123
 
