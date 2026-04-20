@@ -1,6 +1,6 @@
 # EQUIP - Sports Equipment Rental (Web Base) 🏀
 
-Proyek sederhana untuk manajemen peminjaman alat olahraga menggunakan **PHP Native** dan **MySQL**. Proyek ini dibuat sebagai sarana belajar logika backend dan manajemen user.
+Proyek sederhana untuk manajemen peminjaman alat olahraga menggunakan **PHP Native** dan **MySQL**. Proyek ini dibuat sebagai sarana belajar logika backend dan manajemen user (buat tugas sekolah sih whahaaha).
 
 > **Note:** Proyek ini masih dalam tahap pengembangan. Tampilan (CSS) dan struktur kodingan masih perlu banyak perbaikan (refactoring). 
 
@@ -12,13 +12,13 @@ Proyek sederhana untuk manajemen peminjaman alat olahraga menggunakan **PHP Nati
 ## 🔑 Login Access
 Tersedia 3 level akses (Admin, Petugas, Peminjam). Silakan cek tabel user di database untuk detail akun atau gunakan:
 ### Peminjam
-  username: peminjam
+  username: peminjam /
   password: peminjam123
 ### Admin
-  username: admin
+  username: admin /
   password: admin123
 ### Petugas
-  username: petugas
+  username: petugas /
   password: petugas123
 
 ## 📁 Cara Backup/Restore
