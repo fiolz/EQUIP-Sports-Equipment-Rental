@@ -1,5 +1,3 @@
-# EQUIP-Sports-Equipment-Rental
-
 # EQUIP - Sports Equipment Rental (Web Base) 🏀
 
 Proyek sederhana untuk manajemen peminjaman alat olahraga menggunakan **PHP Native** dan **MySQL**. Proyek ini dibuat sebagai sarana belajar logika backend dan manajemen user.
